@@ -1,13 +1,28 @@
 import React, {useState} from 'react';
-import {View, Text, StyleSheet, StatusBar} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  StatusBar,
+  KeyboardAvoidingView,
+  Platform,
+} from 'react-native';
 import {Button, Input, Image} from 'react-native-elements';
 
-const LoginScreen = () => {
+const LoginScreen = ({navigation}) => {
   const [email, setemail] = useState('');
   const [password, setPassword] = useState('');
 
+  const signIn = () => {};
+  const registerScreen=()=>{
+      navigation.navigate("Register")
+  }
+
   return (
-    <View>
+    <KeyboardAvoidingView
+      enabled
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={styles.container}>
       <StatusBar hidden />
 
       <Image
@@ -33,12 +48,29 @@ const LoginScreen = () => {
           onChange={(text) => setPassword(text)}
         />
       </View>
-    </View>
+
+      <Button containerStyle={styles.button} onPress={signIn} title="Login" />
+      <Button containerStyle={styles.button} onPress={registerScreen} type="outline" title="Register" />
+      <View style={{height: 100}} />
+    </KeyboardAvoidingView>
   );
 };
 
 export default LoginScreen;
 
 const styles = StyleSheet.create({
-  inputContainer: {},
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding:10,
+    backgroundColor:"white"
+  },
+  inputContainer: {
+      width:300
+  },
+  button: {
+      width:200,
+      marginTop:10
+  },
 });
