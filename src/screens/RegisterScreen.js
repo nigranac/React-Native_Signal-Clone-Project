@@ -1,31 +1,38 @@
-import React, {useState,useLayoutEffect} from 'react';
-import {
-  StyleSheet,
-  View,
-  KeyboardAvoidingView,
-  Platform,
-} from 'react-native';
-import {Button, Input, Image,Text} from 'react-native-elements';
+import React, {useState, useLayoutEffect} from 'react';
+import {StyleSheet, View, KeyboardAvoidingView, Platform} from 'react-native';
+import {Button, Input, Image, Text} from 'react-native-elements';
+import auth from '@react-native-firebase/auth';
 const RegisterScreen = ({navigation}) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [imageUrl, setImageUrl] = useState('');
 
-useLayoutEffect(() => {
+  useLayoutEffect(() => {
     navigation.setOptions({
-        headerBackTitle:"Back to Login"
-    })
-}, [navigation])
+      headerBackTitle: 'Back to Login',
+    });
+  }, [navigation]);
 
-
-  const register = () => {};
+  const register = () => {
+    // auth()
+    //   .createUserWithEmailAndPassword(email, password)
+    //   .then((authUser) => {
+    //       authUser.user.update({
+    //           displayName:name,
+    //           photoURL:imageUrl|| "https://cencup.com/wp-content/uploads/2019/07/avatar-placeholder.png"
+    //       })
+    //   })
+    //   .catch((error) => alert(error.message));
+  };
   return (
     <KeyboardAvoidingView
       enabled
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={styles.container}>
-      <Text h3 style={{marginBottom:50}}>Create a Signal account</Text>
+      <Text h3 style={{marginBottom: 50}}>
+        Create a Signal account
+      </Text>
 
       <View style={styles.inputContainer}>
         <Input
@@ -62,7 +69,7 @@ useLayoutEffect(() => {
         onPress={register}
         title="Register"
       />
-       <View style={{height: 100}} />
+      <View style={{height: 100}} />
     </KeyboardAvoidingView>
   );
 };
@@ -73,11 +80,11 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    padding:10,
-    backgroundColor:"white"
+    padding: 10,
+    backgroundColor: 'white',
   },
   inputContainer: {
-    width:300
+    width: 300,
   },
   button: {
     width: 200,

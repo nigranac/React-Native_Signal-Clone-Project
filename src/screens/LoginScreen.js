@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -6,17 +6,25 @@ import {
   StatusBar,
   KeyboardAvoidingView,
   Platform,
+  Alert
 } from 'react-native';
 import {Button, Input, Image} from 'react-native-elements';
+import auth from '@react-native-firebase/auth';
+import {resolveAuthError} from '../functions'
 
 const LoginScreen = ({navigation}) => {
   const [email, setemail] = useState('');
   const [password, setPassword] = useState('');
 
-  const signIn = () => {};
-  const registerScreen=()=>{
-      navigation.navigate("Register")
-  }
+  const signIn = () => {
+    auth()
+      .signInWithEmailAndPassword(email, password)
+      .then(() => alert('OK'))
+      .catch((err) => Alert.alert("signalUse",resolveAuthError(err.code)));
+  };
+  const registerScreen = () => {
+    navigation.navigate('Register');
+  };
 
   return (
     <KeyboardAvoidingView
@@ -36,21 +44,24 @@ const LoginScreen = ({navigation}) => {
         <Input
           placeholder="Email"
           autoFocus
-          tyoe="email"
           value={email}
-          onChange={(text) => setemail(text)}
+          onChangeText={(text) => setemail(text)}
         />
         <Input
           placeholder="Password"
           secureTextEntry
-          tyoe="password"
-          value={email}
-          onChange={(text) => setPassword(text)}
+          value={password}
+          onChangeText={(text) => setPassword(text)}
         />
       </View>
 
       <Button containerStyle={styles.button} onPress={signIn} title="Login" />
-      <Button containerStyle={styles.button} onPress={registerScreen} type="outline" title="Register" />
+      <Button
+        containerStyle={styles.button}
+        onPress={registerScreen}
+        type="outline"
+        title="Register"
+      />
       <View style={{height: 100}} />
     </KeyboardAvoidingView>
   );
@@ -63,14 +74,14 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    padding:10,
-    backgroundColor:"white"
+    padding: 10,
+    backgroundColor: 'white',
   },
   inputContainer: {
-      width:300
+    width: 300,
   },
   button: {
-      width:200,
-      marginTop:10
+    width: 200,
+    marginTop: 10,
   },
 });
