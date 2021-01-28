@@ -4,6 +4,8 @@ export function resolveAuthError(code) {
       return 'Invalid password';
     case 'auth/user-not-found':
       return 'User not found';
+    case 'auth/null-value':
+      return 'Enter valid values';
     default:
       break;
   }

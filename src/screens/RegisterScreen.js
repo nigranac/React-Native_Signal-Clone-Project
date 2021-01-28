@@ -1,12 +1,18 @@
 import React, {useState, useLayoutEffect} from 'react';
-import {StyleSheet, View, KeyboardAvoidingView, Platform} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  KeyboardAvoidingView,
+  Platform,
+  Alert,
+} from 'react-native';
 import {Button, Input, Image, Text} from 'react-native-elements';
 import auth from '@react-native-firebase/auth';
 const RegisterScreen = ({navigation}) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [imageUrl, setImageUrl] = useState('');
+  const [passwordRepeat, setPasswordRepeat] = useState('');
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -14,7 +20,15 @@ const RegisterScreen = ({navigation}) => {
     });
   }, [navigation]);
 
-  const register = () => {
+  const register = async () => {
+    if (password === passwordRepeat) {
+      try {
+        await auth().createUserWithEmailAndPassword(email, password);
+        navigation.goBack()
+      } catch (error) {
+        Alert.alert('useSignal', 'An error occured');
+      }
+    }
     // auth()
     //   .createUserWithEmailAndPassword(email, password)
     //   .then((authUser) => {
@@ -56,10 +70,10 @@ const RegisterScreen = ({navigation}) => {
           onChangeText={(text) => setPassword(text)}
         />
         <Input
-          placeholder="Profile Picture URL(Optional)"
+          placeholder="Password repeat"
           tyoe="text"
-          value={imageUrl}
-          onChangeText={(text) => setImageUrl(text)}
+          value={passwordRepeat}
+          onChangeText={(text) => setPasswordRepeat(text)}
           onSubmitEditing={register}
         />
       </View>

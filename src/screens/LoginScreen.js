@@ -6,21 +6,35 @@ import {
   StatusBar,
   KeyboardAvoidingView,
   Platform,
-  Alert
+  Alert,
 } from 'react-native';
 import {Button, Input, Image} from 'react-native-elements';
 import auth from '@react-native-firebase/auth';
-import {resolveAuthError} from '../functions'
+import {resolveAuthError} from '../functions';
 
 const LoginScreen = ({navigation}) => {
   const [email, setemail] = useState('');
   const [password, setPassword] = useState('');
 
-  const signIn = () => {
-    auth()
-      .signInWithEmailAndPassword(email, password)
-      .then(() => alert('OK'))
-      .catch((err) => Alert.alert("signalUse",resolveAuthError(err.code)));
+  const signIn = async () => {
+    try {
+      if (email === '' || password === '') {
+        return Alert.alert('signalUse', resolveAuthError('auth/null-value'));
+      } else {
+        await auth().signInWithEmailAndPassword(email, password);
+      }
+    } catch (error) {
+      Alert.alert('signalUse', resolveAuthError(err.code));
+    }
+
+    // auth()
+    //   .signInWithEmailAndPassword(email, password)
+    //   .then(() => {
+    //       if(email===""|| password===""){
+    //         return Alert.alert("signalUse",resolveAuthError("auth/null-value"))
+    //       }
+    //   })
+    //   .catch((err) => Alert.alert("signalUse",resolveAuthError(err.code)));
   };
   const registerScreen = () => {
     navigation.navigate('Register');
