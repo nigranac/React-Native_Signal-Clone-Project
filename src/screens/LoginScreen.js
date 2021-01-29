@@ -67,6 +67,7 @@ const LoginScreen = ({navigation}) => {
           secureTextEntry
           value={password}
           onChangeText={(text) => setPassword(text)}
+          onSubmitEditing={signIn}
         />
       </View>
 
