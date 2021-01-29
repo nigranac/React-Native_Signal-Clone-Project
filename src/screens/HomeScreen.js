@@ -1,9 +1,10 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StatusBar, StyleSheet, Text, View } from 'react-native'
 
 const HomeScreen = () => {
     return (
         <View>
+            <StatusBar hidden/>
             <Text>This is Home Page</Text>
         </View>
     )

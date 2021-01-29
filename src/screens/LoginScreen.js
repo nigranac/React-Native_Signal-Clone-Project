@@ -22,6 +22,7 @@ const LoginScreen = ({navigation}) => {
         return Alert.alert('signalUse', resolveAuthError('auth/null-value'));
       } else {
         await auth().signInWithEmailAndPassword(email, password);
+        navigation.replace("Home")
       }
     } catch (error) {
       Alert.alert('signalUse', resolveAuthError(err.code));

@@ -12,7 +12,7 @@ const RegisterScreen = ({navigation}) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [passwordRepeat, setPasswordRepeat] = useState('');
+  const [imageUrl, setImageUrl] = useState('');
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -21,23 +21,28 @@ const RegisterScreen = ({navigation}) => {
   }, [navigation]);
 
   const register = async () => {
-    if (password === passwordRepeat) {
-      try {
-        await auth().createUserWithEmailAndPassword(email, password);
-        navigation.goBack()
-      } catch (error) {
-        Alert.alert('useSignal', 'An error occured');
-      }
-    }
-    // auth()
-    //   .createUserWithEmailAndPassword(email, password)
-    //   .then((authUser) => {
-    //       authUser.user.update({
-    //           displayName:name,
-    //           photoURL:imageUrl|| "https://cencup.com/wp-content/uploads/2019/07/avatar-placeholder.png"
-    //       })
-    //   })
-    //   .catch((error) => alert(error.message));
+    // if (password === passwordRepeat) {
+    //   try {
+    //     await auth().createUserWithEmailAndPassword(email, password);
+    //     navigation.goBack()
+    //   } catch (error) {
+    //     Alert.alert('useSignal', 'An error occured');
+    //   }
+    // }
+    // else{
+    //     Alert.alert('useSignal', 'Passwords are not match ')
+    // }
+    auth()
+      .createUserWithEmailAndPassword(email, password)
+      .then((authUser) => {
+          authUser.user.updateProfile({
+              displayName:name,
+              photoURL:imageUrl|| "https://cencup.com/wp-content/uploads/2019/07/avatar-placeholder.png"
+          })
+navigation.navigate("Home")
+      })
+      
+      .catch((error) => alert(error.message));
   };
   return (
     <KeyboardAvoidingView
@@ -70,10 +75,10 @@ const RegisterScreen = ({navigation}) => {
           onChangeText={(text) => setPassword(text)}
         />
         <Input
-          placeholder="Password repeat"
+          placeholder="Your Image URL (Optional)"
           tyoe="text"
-          value={passwordRepeat}
-          onChangeText={(text) => setPasswordRepeat(text)}
+          value={imageUrl}
+          onChangeText={(text) => setImageUrl(text)}
           onSubmitEditing={register}
         />
       </View>
