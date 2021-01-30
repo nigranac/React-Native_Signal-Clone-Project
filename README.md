@@ -1,13 +1,11 @@
 
-<h1 align="center">Signal-Clone-Project</h1>
+<h1 align="center">Signal Clone Project</h1>
 
 ## Overview
 
-<img src="src/assets/Login.png" height="300">
-<img src="src/assets/register.png" height="300">
-<img src="src/assets/signal.png" height="300">
-<img src="src/assets/chats.png" height="300">
-<img src="src/assets/new Chat.png" height="300">
+<img src="src/assets/Login.png" height="400">&nbsp;&nbsp;<img src="src/assets/register.png" height="400">&nbsp;&nbsp;
+<img src="src/assets/signal.png" height="400">&nbsp;&nbsp;<img src="src/assets/chats.png" height="400">&nbsp;&nbsp;<img src="src/assets/new Chat.png" height="400">
+
 
 ### Built With
 
