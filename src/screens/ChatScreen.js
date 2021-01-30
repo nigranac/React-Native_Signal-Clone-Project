@@ -190,6 +190,7 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
     borderRadius: 20,
     marginRight: 15,
+    marginBottom:20,
     maxWidth: '80%',
     position: 'relative',
   },
