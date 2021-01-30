@@ -31,7 +31,7 @@ const ChatScreen = ({navigation, route}) => {
           <Avatar
             rounded
             source={{
-              uri:
+              uri:messages[0]?.data.photoURL ||
                 'https://cencup.com/wp-content/uploads/2019/07/avatar-placeholder.png',
             }}
           />
@@ -64,7 +64,7 @@ const ChatScreen = ({navigation, route}) => {
         </View>
       ),
     });
-  }, [navigation]);
+  }, [navigation,messages]);
 
   const sendMessage = () => {
     Keyboard.dismiss();
@@ -130,7 +130,7 @@ const ChatScreen = ({navigation, route}) => {
                     <Text style={styles.recieverText}>{data.message}</Text>
                   </View>
                 ) : (
-                  <View style={styles.sender}>
+                  <View key={id} style={styles.sender}>
                     <Avatar
                       containerStyle={{
                         position: 'absolute',
