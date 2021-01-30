@@ -25,7 +25,7 @@ const LoginScreen = ({navigation}) => {
         navigation.replace("Home")
       }
     } catch (error) {
-      Alert.alert('signalUse', resolveAuthError(err.code));
+      Alert.alert('signalUse', resolveAuthError(error.code));
     }
 
     // auth()
